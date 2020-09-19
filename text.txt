@@ -1,0 +1,49 @@
+Scrypt de connexion à une base de donnée Mysql
+La version Mysql utilisé est 8.0.21
+Le système utiliser est debian 9
+le langage utilisé est python 7.7
+
+configurons les fichiers de journalisation de la base de donnée
+Les fichiers de journalisations de la base de donnée 
+ sont dans le repertoire /etc/mysql/my.cnf
+
+[mysqld] #client mysql
+log-error  = /var/log/mysql/error.log (enregiste les information de connexion
+                                        et deconneion ainsi que les erreus critiques)
+
+
+general_log_file = /var/log/mysql/mysql.log (enregistre les informations géneral 
+					     sur les requêtes de clients)
+
+log-bin = /var/log/mysql/mysql-Bin.log (enregistre toute les requêtes qui 
+					modifie les données update et delete )
+
+après avoir configurer les fichiers logs il faut redemarer le serveur mysql
+systemctl restart mysql
+
+se connecter à mysql 
+mysql -u root - p
+
+Créer un utilisateur de la base de donnée 
+create user  'nameuser'@'localhost' identified by 'password'  
+
+attribuer tout les droits à l'utilisateur
+
+grant all privileges on *.* to 'nameuser'@'localhost' 
+
+Appliquer les changement effectuer 
+
+flush privileges
+
+
+Créer une base de donnée
+
+create database 'namedatabase'
+
+
+Après avoir configurer les fichiers log et créer un utilisateur
+de la base de données ainsi qu'une base de donnée 
+un scrypt python nous permettra d'ajouter une table dans cette base 
+modifier le champ de la table de la base de donnée 
+crypter et décryter le champ de la table. 
+
